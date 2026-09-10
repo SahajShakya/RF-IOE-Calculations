@@ -47,7 +47,7 @@
 | Microwave Filter Design | `<FilterDesign />` | `designFilter` | Butterworth/Chebyshev LPF, HPF, BPF, BSF |
 
 - **Two APIs in one package**: pure calculation functions usable anywhere (Node, browser, plain JS/TS) **and** polished React components.
-- **No design-system dependencies**: components are self-contained Tailwind CSS primitives (styling matches the NerdStudyHub admin interface's own components). No Radix, no CVA, no shadcn/ui, no lucide-icons.
+- **No design-system dependencies**: components are self-contained Tailwind CSS primitives (styling matches the NerdStudyHub admin interface's own components). No Radix, no CVA, no icon libraries.
 - **Optional `onInsert` prop**: get results as HTML to embed into rich-text editors (e.g. TinyMCE).
 - **MIT licensed.**
 
@@ -72,7 +72,7 @@ The package ships its own minimal Tailwind class names and has **zero runtime de
 
 ## Tailwind setup
 
-The React components are plain Tailwind utilities — no CSS variables, no shadcn/ui design tokens, no extra plugins. Just make sure Tailwind generates classes for the package:
+The React components are plain Tailwind utilities — no CSS variables, no design tokens, no extra plugins. Just make sure Tailwind generates classes for the package:
 
 ```js
 // tailwind.config.js
@@ -86,7 +86,7 @@ export default {
 }
 ```
 
-That's it. The components use standard Tailwind color utilities (`gray-*`, `indigo-*`, `green-*`, `red-*`), so they work in any project that runs Tailwind, with or without shadcn/ui.
+That's it. The components use standard Tailwind color utilities (`gray-*`, `indigo-*`, `green-*`, `red-*`), so they work in any project that runs Tailwind.
 
 ---
 
