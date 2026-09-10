@@ -46,9 +46,9 @@
 | GaAs FET Maximum Gain | `<MaxGain />` | `calculateMaxGain` | Max gain + single-stub matching networks |
 | Microwave Filter Design | `<FilterDesign />` | `designFilter` | Butterworth/Chebyshev LPF, HPF, BPF, BSF |
 
-- **Two APIs in one package**: pure calculation functions usable anywhere (Node, browser, plain JS/TS) **and** polished React components.
+- **Two APIs in one package**: pure calculation functions usable anywhere (Node, browser, plain JS/TS) **and** ready-made React calculator components.
 - **No design-system dependencies**: components are self-contained Tailwind CSS primitives (styling matches the NerdStudyHub admin interface's own components). No Radix, no CVA, no icon libraries.
-- **Optional `onInsert` prop**: get results as HTML to embed into rich-text editors (e.g. TinyMCE).
+- **Optional `onInsert` prop**: get results as HTML to embed into any rich-text editor or anywhere else you need.
 - **MIT licensed.**
 
 ---
@@ -94,6 +94,20 @@ That's it. The components use standard Tailwind color utilities (`gray-*`, `indi
 
 ### Individual tools
 
+Render any tool as a complete, self-contained calculator. Just drop the component in — it brings its own inputs, buttons, and results UI:
+
+```tsx
+import { SingleStubMatch } from "ioe-rf-calculations";
+
+export function MyPage() {
+  return (
+    <SingleStubMatch />
+  );
+}
+```
+
+Or use several together:
+
 ```tsx
 import {
   SingleStubMatch,
@@ -129,22 +143,11 @@ export function ToolsPage() {
 
 ### Component API
 
-Every tool component accepts one optional prop:
+Every tool component can be used with no props at all — it renders everything it needs (`<SingleStubMatch />`). There is one optional prop:
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| `onInsert` | `(html: string) => void` | Receives the results rendered as HTML. Ideal for inserting results into a rich-text editor. |
-
-```tsx
-import { SingleStubMatch } from "ioe-rf-calculations";
-
-// Inside a page that mounts TinyMCE
-const handleInsert = (html: string) => {
-  editorRef.current?.insertContent(html);
-};
-
-<SingleStubMatch onInsert={handleInsert} />;
-```
+| `onInsert` | `(html: string) => void` | Optional. Receives the results rendered as HTML when the user clicks "Insert into Content". Useful when you want to capture the results programmatically. |
 
 `MaxGain` also accepts an optional `freqGHz` frequency field for cm-dimension stub matching.
 
@@ -332,29 +335,26 @@ result.elements.forEach((el) => {
 
 ## Recipes
 
-### Insert results into TinyMCE (admin/editor flow)
+### Capture results as HTML (any editor)
+
+Use the optional `onInsert` prop to grab the results as HTML — for a rich-text editor, a preview pane, or anything else:
 
 ```tsx
-import { useRef } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+import { useState } from "react";
 import { SingleStubMatch } from "ioe-rf-calculations";
 
-export function AdminEditor() {
-  const editorRef = useRef<any>(null);
+export function CalculatorWithOutput() {
+  const [html, setHtml] = useState("");
   return (
     <>
-      <SingleStubMatch onInsert={(html) => editorRef.current?.insertContent(html)} />
-      <Editor
-        onInit={(_, editor) => (editorRef.current = editor)}
-        apiKey="YOUR_TINYMCE_KEY"
-        init={{ height: 400 }}
-      />
+      <SingleStubMatch onInsert={setHtml} />
+      {html && <div dangerouslySetInnerHTML={{ __html: html }} />}
     </>
   );
 }
 ```
 
-### Public calculator page (read-only)
+### Public calculator page
 
 ```tsx
 import { RFAnalysisSelector } from "ioe-rf-calculations";
