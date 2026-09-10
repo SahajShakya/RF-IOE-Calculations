@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { cn } from "../lib/utils";
+import { cn } from "../lib/cn";
 import SingleStubMatch from "./SingleStubMatch";
 import DoubleStubMatch from "./DoubleStubMatch";
 import StabilityAnalyzer from "./StabilityAnalyzer";
@@ -58,28 +56,32 @@ const RFAnalysisSelector: React.FC<Props> = ({ onInsert }) => {
       {!selected ? (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {analyses.map((a) => (
-            <Card
+            <div
               key={a.id as string}
               className={cn(
-                "cursor-pointer transition-all hover:border-primary/50 hover:shadow-md",
-                selected === a.id && "border-primary ring-2 ring-primary/20"
+                "border border-gray-300 bg-white rounded-lg shadow-md p-4 mb-4 cursor-pointer transition-all hover:shadow-md",
+                selected === a.id && "border-blue-400 ring-2 ring-blue-200"
               )}
               onClick={() => setSelected(a.id)}
             >
-              <CardHeader>
-                <CardTitle className="text-base">{a.label}</CardTitle>
-                <CardDescription>{a.description}</CardDescription>
-              </CardHeader>
-            </Card>
+              <div className="mb-4">
+                <p className="text-base font-bold text-gray-900 mb-1">{a.label}</p>
+                <p className="text-sm text-gray-600">{a.description}</p>
+              </div>
+            </div>
           ))}
         </div>
       ) : (
         <>
           <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="secondary" className="cursor-pointer" onClick={() => setSelected(null)}>
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              className="px-3 py-1 text-xs font-semibold bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md"
+            >
               ← Choose another analysis
-            </Badge>
-            <span className="text-sm font-medium text-foreground">
+            </button>
+            <span className="text-sm font-medium text-gray-800">
               {analyses.find((a) => a.id === selected)?.label}
             </span>
           </div>

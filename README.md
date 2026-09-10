@@ -14,7 +14,7 @@
 
 - [Features](#features)
 - [Installation](#installation)
-- [Tailwind + shadcn/ui setup](#tailwind--shadcnui-setup)
+- [Tailwind setup](#tailwind-setup)
 - [React components](#react-components)
   - [Individual tools](#individual-tools)
   - [All-in-one selector](#all-in-one-selector)
@@ -47,7 +47,7 @@
 | Microwave Filter Design | `<FilterDesign />` | `designFilter` | Butterworth/Chebyshev LPF, HPF, BPF, BSF |
 
 - **Two APIs in one package**: pure calculation functions usable anywhere (Node, browser, plain JS/TS) **and** polished React components.
-- **Design-system native**: components are built on [shadcn/ui](https://ui.shadcn.com) primitives (Card, Input, Button, Select, Badge, Table) + Tailwind CSS, so they match apps that already use shadcn/ui.
+- **No design-system dependencies**: components are self-contained Tailwind CSS primitives (styling matches the NerdStudyHub admin interface's own components). No Radix, no CVA, no shadcn/ui, no lucide-icons.
 - **Optional `onInsert` prop**: get results as HTML to embed into rich-text editors (e.g. TinyMCE).
 - **MIT licensed.**
 
@@ -66,17 +66,13 @@ Peer dependencies:
 | `react` | `>= 18` |
 | `react-dom` | `>= 18` |
 
-The package bundles its own internal styling dependencies (`@radix-ui/react-select`, `lucide-react`, `class-variance-authority`, `clsx`, `tailwind-merge`), so you don't need to install them yourself.
+The package ships its own minimal Tailwind class names and has **zero runtime dependencies**, so there is nothing else to install.
 
 ---
 
-## Tailwind + shadcn/ui setup
+## Tailwind setup
 
-The React components render shadcn/ui primitives, so your app needs Tailwind CSS and the standard shadcn/ui design tokens.
-
-### 1. Tailwind content
-
-Add the package to your Tailwind `content` globs so the components' class names get generated:
+The React components are plain Tailwind utilities — no CSS variables, no shadcn/ui design tokens, no extra plugins. Just make sure Tailwind generates classes for the package:
 
 ```js
 // tailwind.config.js
@@ -90,48 +86,7 @@ export default {
 }
 ```
 
-### 2. Design tokens
-
-The components use the shadcn/ui CSS variables. The simplest way is to run the shadcn CLI in your app:
-
-```bash
-npx shadcn@latest init
-```
-
-…or copy the [theme variables](https://ui.shadcn.com/docs/theming) directly into your `globals.css`:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
-}
-```
-
-The app must also map these to Tailwind's `card`, `border`, `input`, `ring`, `background`, `foreground`, `popover` etc. color slots — the default shadcn/ui `tailwind.config.js` does this out of the box.
+That's it. The components use standard Tailwind color utilities (`gray-*`, `indigo-*`, `green-*`, `red-*`), so they work in any project that runs Tailwind, with or without shadcn/ui.
 
 ---
 
@@ -205,7 +160,7 @@ import {
   ActionBar,      // Calculate + Insert buttons
   ResultCard,     // results container
   ResultSection,  // titled result group
-  ResultRow,      // label → value row (with optional Badge)
+  ResultRow,      // label → value row (with optional StatusBadge)
   StatusBadge,    // ✓ / ✗ status badge
   SParameterInputs, // reusable S11/S12/S21/S22 mag+angle inputs
   Divider,
@@ -453,8 +408,10 @@ The repo mirrors the two-layer design:
 src/
 ├── calculations.ts   # pure RF/microwave math (framework-free)
 ├── components/       # React tool components built on the primitives below
-└── ui/               # shadcn/ui primitives (Card, Input, Button, Select, Badge, Table)
+└── lib/              # tiny class-name helper (no external deps)
 ```
+
+The styling for every component lives directly in `components/RFComponents.tsx` as bare Tailwind utilities, styled to match the NerdStudyHub admin UI's own components (Card, InputField, SelectField, SubmitButton). There is no UI library to configure.
 
 ## Contributing
 

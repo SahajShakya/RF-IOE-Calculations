@@ -9,19 +9,13 @@ import {
   ToolCard,
   FieldGrid,
   Field,
+  Select,
   ActionBar,
   ResultCard,
   ResultSection,
   ResultRow,
   Divider,
 } from "./RFComponents";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 
 interface Props {
   onInsert?: (html: string) => void;
@@ -82,15 +76,15 @@ const DoubleStubMatch: React.FC<Props> = ({ onInsert }) => {
       title="Double Shunt-Stub Matching"
       description="Two-stub matching with configurable spacing"
     >
-      <Select value={inputType} onValueChange={(v) => setInputType(v as "gamma" | "zl")}>
-        <SelectTrigger className="w-full sm:w-64">
-          <SelectValue placeholder="Input type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="gamma">ΓL Input</SelectItem>
-          <SelectItem value="zl">ZL Input</SelectItem>
-        </SelectContent>
-      </Select>
+      <Select
+        label="Input type"
+        value={inputType}
+        onValueChange={(v) => setInputType(v as "gamma" | "zl")}
+        options={[
+          { id: "gamma", name: "ΓL Input" },
+          { id: "zl", name: "ZL Input" },
+        ]}
+      />
 
       <FieldGrid>
         <Field

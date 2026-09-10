@@ -4,27 +4,19 @@ import {
   ToolCard,
   FieldGrid,
   Field,
+  Select,
   ActionBar,
   ResultCard,
   ResultSection,
   ResultRow,
   Divider,
-} from "./RFComponents";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "./RFComponents";
 
 interface Props {
   onInsert?: (html: string) => void;
@@ -94,27 +86,27 @@ const FilterDesign: React.FC<Props> = ({ onInsert }) => {
       description="Butterworth / Chebyshev LPF, HPF, BPF, BSF synthesis"
     >
       <FieldGrid>
-        <Select value={approximation} onValueChange={(v) => setApproximation(v as "butterworth" | "chebyshev")}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Approximation" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="butterworth">Butterworth</SelectItem>
-            <SelectItem value="chebyshev">Chebyshev</SelectItem>
-          </SelectContent>
-        </Select>
+        <Select
+          label="Approximation"
+          value={approximation}
+          onValueChange={(v) => setApproximation(v as "butterworth" | "chebyshev")}
+          options={[
+            { id: "butterworth", name: "Butterworth" },
+            { id: "chebyshev", name: "Chebyshev" },
+          ]}
+        />
 
-        <Select value={filterType} onValueChange={(v) => setFilterType(v as "lpf" | "hpf" | "bpf" | "bsf")}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Filter type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="lpf">Low-Pass (LPF)</SelectItem>
-            <SelectItem value="hpf">High-Pass (HPF)</SelectItem>
-            <SelectItem value="bpf">Band-Pass (BPF)</SelectItem>
-            <SelectItem value="bsf">Band-Stop (BSF)</SelectItem>
-          </SelectContent>
-        </Select>
+        <Select
+          label="Filter type"
+          value={filterType}
+          onValueChange={(v) => setFilterType(v as "lpf" | "hpf" | "bpf" | "bsf")}
+          options={[
+            { id: "lpf", name: "Low-Pass (LPF)" },
+            { id: "hpf", name: "High-Pass (HPF)" },
+            { id: "bpf", name: "Band-Pass (BPF)" },
+            { id: "bsf", name: "Band-Stop (BSF)" },
+          ]}
+        />
       </FieldGrid>
 
       <FieldGrid>
