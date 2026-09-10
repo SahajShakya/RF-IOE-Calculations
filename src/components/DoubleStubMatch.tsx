@@ -21,6 +21,17 @@ interface Props {
   onInsert?: (html: string) => void;
 }
 
+const LAMBDA_OPTIONS = [
+  { id: "0.125", name: "λ / 8" },
+  { id: "0.25", name: "λ / 4" },
+  { id: "0.375", name: "3λ / 8" },
+  { id: "0.5", name: "λ / 2" },
+  { id: "0.625", name: "5λ / 8" },
+  { id: "0.75", name: "3λ / 4" },
+  { id: "0.875", name: "7λ / 8" },
+  { id: "1", name: "λ" },
+];
+
 const DoubleStubMatch: React.FC<Props> = ({ onInsert }) => {
   const [inputType, setInputType] = useState<"gamma" | "zl">("zl");
   const [Z0, setZ0] = useState("50");
@@ -31,6 +42,8 @@ const DoubleStubMatch: React.FC<Props> = ({ onInsert }) => {
   const [zlIm, setZlIm] = useState("0");
   const [d1Lambda, setD1Lambda] = useState("0.25");
   const [spacingLambda, setSpacingLambda] = useState("0.25");
+  const [d1Custom, setD1Custom] = useState(false);
+  const [spacingCustom, setSpacingCustom] = useState(false);
   const [result, setResult] = useState<ReturnType<typeof doubleStubMatch> | null>(null);
 
   const handleCalculate = () => {
@@ -97,26 +110,67 @@ const DoubleStubMatch: React.FC<Props> = ({ onInsert }) => {
           hint="GHz — optional"
           inputProps={{ type: "number", value: freqGHz, onChange: (e) => setFreqGHz(e.target.value) }}
         />
-        <Field
-          label="d1"
-          hint="λ"
-          inputProps={{
-            type: "number",
-            step: "0.01",
-            value: d1Lambda,
-            onChange: (e) => setD1Lambda(e.target.value),
-          }}
-        />
-        <Field
-          label="Stub spacing"
-          hint="λ"
-          inputProps={{
-            type: "number",
-            step: "0.01",
-            value: spacingLambda,
-            onChange: (e) => setSpacingLambda(e.target.value),
-          }}
-        />
+      </FieldGrid>
+
+      <FieldGrid>
+        <div className="rf-port-box">
+          {d1Custom ? (
+            <Field
+              label="d1"
+              hint="λ — custom"
+              inputProps={{
+                type: "number",
+                step: "0.001",
+                value: d1Lambda,
+                onChange: (e) => setD1Lambda(e.target.value),
+              }}
+            />
+          ) : (
+            <Select
+              label="d1"
+              value={d1Lambda}
+              onValueChange={setD1Lambda}
+              options={LAMBDA_OPTIONS}
+            />
+          )}
+          <label className="rf-checkbox">
+            <input
+              type="checkbox"
+              checked={d1Custom}
+              onChange={(e) => setD1Custom(e.target.checked)}
+            />
+            <span>Enter custom value</span>
+          </label>
+        </div>
+        <div className="rf-port-box">
+          {spacingCustom ? (
+            <Field
+              label="Stub spacing"
+              hint="λ — custom"
+              inputProps={{
+                type: "number",
+                step: "0.001",
+                value: spacingLambda,
+                onChange: (e) => setSpacingLambda(e.target.value),
+              }}
+            />
+          ) : (
+            <Select
+              label="Stub spacing"
+              value={spacingLambda}
+              onValueChange={setSpacingLambda}
+              options={LAMBDA_OPTIONS}
+            />
+          )}
+          <label className="rf-checkbox">
+            <input
+              type="checkbox"
+              checked={spacingCustom}
+              onChange={(e) => setSpacingCustom(e.target.checked)}
+            />
+            <span>Enter custom value</span>
+          </label>
+        </div>
       </FieldGrid>
 
       {inputType === "gamma" ? (
