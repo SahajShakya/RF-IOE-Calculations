@@ -1,0 +1,68 @@
+{
+  "name": "ioe-rf-calculations",
+  "version": "0.1.0",
+  "description": "IOE RF/Microwave calculation utilities and ready-made React components: single & double stub matching, transistor stability, power gain, maximum gain, and microwave filter design.",
+  "keywords": [
+    "rf",
+    "microwave",
+    "stub-matching",
+    "smith-chart",
+    "transistor-stability",
+    "power-gain",
+    "filter-design",
+    "react",
+    "engineering"
+  ],
+  "license": "MIT",
+  "author": "Sahaj Shakya",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SahajShakya/RF-IOE-Calculations.git"
+  },
+  "homepage": "https://github.com/SahajShakya/RF-IOE-Calculations",
+  "bugs": {
+    "url": "https://github.com/SahajShakya/RF-IOE-Calculations/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-select": "^2.2.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.525.0",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.1.6",
+    "vite-plugin-dts": "^4.5.0"
+  }
+}
