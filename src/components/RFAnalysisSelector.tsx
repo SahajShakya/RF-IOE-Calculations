@@ -52,36 +52,32 @@ const RFAnalysisSelector: React.FC<Props> = ({ onInsert }) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="rf-space-y-4">
       {!selected ? (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="rf-grid rf-grid-3">
           {analyses.map((a) => (
             <div
               key={a.id as string}
               className={cn(
-                "border border-gray-300 bg-white rounded-lg shadow-md p-4 mb-4 cursor-pointer transition-all hover:shadow-md",
-                selected === a.id && "border-blue-400 ring-2 ring-blue-200"
+                "rf-selector-card",
+                selected === a.id && "rf-selector-card-selected"
               )}
               onClick={() => setSelected(a.id)}
             >
-              <div className="mb-4">
-                <p className="text-base font-bold text-gray-900 mb-1">{a.label}</p>
-                <p className="text-sm text-gray-600">{a.description}</p>
+              <div className="rf-mb-4">
+                <p className="rf-selector-title">{a.label}</p>
+                <p className="rf-selector-desc">{a.description}</p>
               </div>
             </div>
           ))}
         </div>
       ) : (
         <>
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setSelected(null)}
-              className="px-3 py-1 text-xs font-semibold bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md"
-            >
+          <div className="rf-flex-wrap">
+            <button type="button" onClick={() => setSelected(null)} className="rf-back-btn">
               ← Choose another analysis
             </button>
-            <span className="text-sm font-medium text-gray-800">
+            <span className="rf-selected-label">
               {analyses.find((a) => a.id === selected)?.label}
             </span>
           </div>

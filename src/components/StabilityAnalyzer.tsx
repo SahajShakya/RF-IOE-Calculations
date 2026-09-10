@@ -102,7 +102,7 @@ const StabilityAnalyzer: React.FC<Props> = ({ onInsert }) => {
 
           <Divider />
 
-          <p className="text-sm font-semibold text-foreground">{result.stability}</p>
+          <p className="rf-text-emphasis">{result.stability}</p>
 
           {result.CL && (
             <>

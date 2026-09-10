@@ -14,7 +14,7 @@
 
 - [Features](#features)
 - [Installation](#installation)
-- [Tailwind setup](#tailwind-setup)
+- [Styling](#styling)
 - [React components](#react-components)
   - [Individual tools](#individual-tools)
   - [All-in-one selector](#all-in-one-selector)
@@ -47,7 +47,7 @@
 | Microwave Filter Design | `<FilterDesign />` | `designFilter` | Butterworth/Chebyshev LPF, HPF, BPF, BSF |
 
 - **Two APIs in one package**: pure calculation functions usable anywhere (Node, browser, plain JS/TS) **and** ready-made React calculator components.
-- **No design-system dependencies**: components are self-contained Tailwind CSS primitives (styling matches the NerdStudyHub admin interface's own components). No Radix, no CVA, no icon libraries.
+- **Plain CSS, no frameworks**: components are styled with a single hand-written stylesheet (`rf-components.css`) — **no Tailwind, no Radix, no CVA, no CSS-in-JS, no icon libraries**. Visual style matches the NerdStudyHub admin interface's own components.
 - **Optional `onInsert` prop**: get results as HTML to embed into any rich-text editor or anywhere else you need.
 - **MIT licensed.**
 
@@ -66,27 +66,26 @@ Peer dependencies:
 | `react` | `>= 18` |
 | `react-dom` | `>= 18` |
 
-The package ships its own minimal Tailwind class names and has **zero runtime dependencies**, so there is nothing else to install.
+The package has **zero runtime dependencies** — no need to install Tailwind or anything else.
 
 ---
 
-## Tailwind setup
+## Styling
 
-The React components are plain Tailwind utilities — no CSS variables, no design tokens, no extra plugins. Just make sure Tailwind generates classes for the package:
+The React components use plain CSS (no Tailwind classes, no CSS variables, no library). Import the stylesheet once in your app:
 
-```js
-// tailwind.config.js
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/ioe-rf-calculations/dist/**/*.{js,mjs}", // <-- add this
-  ],
-  ...
-}
+```tsx
+// main.tsx / App entry — anywhere before rendering the components
+import "ioe-rf-calculations/rf-components.css";
 ```
 
-That's it. The components use standard Tailwind color utilities (`gray-*`, `indigo-*`, `green-*`, `red-*`), so they work in any project that runs Tailwind.
+…or via a `<link>` tag:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/ioe-rf-calculations/rf-components.css" />
+```
+
+That's it — the components are fully styled and ready to render. There is nothing else to configure.
 
 ---
 
@@ -411,7 +410,7 @@ src/
 └── lib/              # tiny class-name helper (no external deps)
 ```
 
-The styling for every component lives directly in `components/RFComponents.tsx` as bare Tailwind utilities, styled to match the NerdStudyHub admin UI's own components (Card, InputField, SelectField, SubmitButton). There is no UI library to configure.
+The styling for every component lives in `rf-components.css` (plain CSS, no Tailwind, no UI library), styled to match the NerdStudyHub admin UI's own components (Card, InputField, SelectField, SubmitButton). There is no UI library to configure — just import the stylesheet.
 
 ## Contributing
 

@@ -167,7 +167,7 @@ const DoubleStubMatch: React.FC<Props> = ({ onInsert }) => {
           <ResultRow label="y1 (at first stub)" value={formatComplex(result.y1)} />
           <Divider />
           {result.solutions.length === 0 ? (
-            <p className="text-sm font-medium text-destructive">
+            <p className="rf-text-destructive">
               No solution exists for this configuration.
             </p>
           ) : (

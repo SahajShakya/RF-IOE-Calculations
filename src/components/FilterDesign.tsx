@@ -222,14 +222,14 @@ const FilterDesign: React.FC<Props> = ({ onInsert }) => {
               <TableHeader>
                 <TableRow>
                   <TableHead>Index</TableHead>
-                  <TableHead className="text-right">Value</TableHead>
+                  <TableHead className="rf-text-right">Value</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {result.g.map((val, i) => (
                   <TableRow key={i}>
-                    <TableCell className="font-medium">g{i}</TableCell>
-                    <TableCell className="text-right">{val.toFixed(8)}</TableCell>
+                    <TableCell className="rf-font-medium">g{i}</TableCell>
+                    <TableCell className="rf-text-right">{val.toFixed(8)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -244,15 +244,15 @@ const FilterDesign: React.FC<Props> = ({ onInsert }) => {
                 <TableRow>
                   <TableHead>Element</TableHead>
                   <TableHead>Topology</TableHead>
-                  <TableHead className="text-right">Value</TableHead>
+                  <TableHead className="rf-text-right">Value</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {result.elements.map((el) => (
                   <TableRow key={el.k}>
-                    <TableCell className="font-medium">g{el.k}</TableCell>
+                    <TableCell className="rf-font-medium">g{el.k}</TableCell>
                     <TableCell>{el.topology}</TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="rf-text-right">
                       {el.L !== null && `L = ${(el.L * 1e9).toFixed(6)} nH`}
                       {el.C !== null && `C = ${(el.C * 1e12).toFixed(6)} pF`}
                     </TableCell>
