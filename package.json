@@ -1,6 +1,6 @@
 {
   "name": "ioe-rf-calculations",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "IOE RF/Microwave calculation utilities and ready-made React components: single & double stub matching, transistor stability, power gain, maximum gain, and microwave filter design.",
   "keywords": [
     "rf",
